@@ -57,10 +57,10 @@ export const websiteData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "WP Block to HTML Documentation",
-  "url": "https://wp-block-to-html.madebyaris.com",
+  "url": "https://docs-block.madebyaris.com/",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://wp-block-to-html.madebyaris.com/?q={search_term_string}",
+    "target": "https://docs-block.madebyaris.com/?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }; 

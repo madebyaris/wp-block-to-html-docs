@@ -13,6 +13,9 @@ export default defineConfig({
   // SEO optimizations
   lang: 'en-US',
   head: [
+    // Google Search Console verification
+    ['meta', { name: 'google-site-verification', content: 'z22g2gK0FXnAQPKx2lZdwGzJ4VssZYWjZDON_oJTgss' }],
+    
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
@@ -23,8 +26,8 @@ export default defineConfig({
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'WP Block to HTML - Convert WordPress Blocks to HTML with Ease' }],
     ['meta', { property: 'og:description', content: 'A powerful utility for converting WordPress block data to framework-agnostic HTML or framework-specific components with advanced optimization features.' }],
-    ['meta', { property: 'og:image', content: 'https://wp-block-to-html.madebyaris.com/og-image.png' }],
-    ['meta', { property: 'og:url', content: 'https://wp-block-to-html.madebyaris.com/' }],
+    ['meta', { property: 'og:image', content: 'https://docs-block.madebyaris.com/og-image.png' }],
+    ['meta', { property: 'og:url', content: 'https://docs-block.madebyaris.com/' }],
     
     // Twitter
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
@@ -32,14 +35,14 @@ export default defineConfig({
     ['meta', { name: 'twitter:creator', content: '@arisberikut' }],
     ['meta', { name: 'twitter:title', content: 'WP Block to HTML - Convert WordPress Blocks to HTML with Ease' }],
     ['meta', { name: 'twitter:description', content: 'A powerful utility for converting WordPress block data to framework-agnostic HTML or framework-specific components with advanced optimization features.' }],
-    ['meta', { name: 'twitter:image', content: 'https://wp-block-to-html.madebyaris.com/twitter-card.png' }],
+    ['meta', { name: 'twitter:image', content: 'https://docs-block.madebyaris.com/twitter-card.png' }],
     
     // Favicon
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }],
     
     // Canonical URL
-    ['link', { rel: 'canonical', href: 'https://wp-block-to-html.madebyaris.com/' }],
+    ['link', { rel: 'canonical', href: 'https://docs-block.madebyaris.com/' }],
   ],
   
   // Improve page title format
@@ -55,7 +58,7 @@ export default defineConfig({
 
   // Generate sitemap.xml after build
   buildEnd: async ({ outDir }) => {
-    const sitemap = new SitemapStream({ hostname: 'https://wp-block-to-html.madebyaris.com' })
+    const sitemap = new SitemapStream({ hostname: 'https://docs-block.madebyaris.com' })
     const links = []
     
     // Main pages
