@@ -1,0 +1,24 @@
+{
+  "name": "wp-block-to-html-docs",
+  "version": "1.0.0",
+  "description": "Documentation for WP Block to HTML converter",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "build": "node scripts/build.js"
+  },
+  "keywords": [
+    "wordpress",
+    "blocks",
+    "html",
+    "headless",
+    "documentation"
+  ],
+  "author": "Made by Aris",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.0.0-rc.44"
+  }
+}

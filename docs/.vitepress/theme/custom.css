@@ -1,0 +1,49 @@
+/* Custom styles for WP Block to HTML docs */
+
+/* Hire Me button styling */
+.VPNavBarMenu .VPNavBarMenuLink:last-child {
+  background-color: #3eaf7c;
+  color: white;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-left: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink:last-child:hover {
+  background-color: #2c8f63;
+  text-decoration: none;
+}
+
+/* Dark mode adjustments */
+.dark .VPNavBarMenu .VPNavBarMenuLink:last-child {
+  background-color: #4abf8a;
+  color: #0d1117;
+}
+
+.dark .VPNavBarMenu .VPNavBarMenuLink:last-child:hover {
+  background-color: #5ccf9a;
+}
+
+/* Creator message styling */
+.dark .creator-message {
+  background-color: #1a1a1a !important;
+  border-left-color: #4abf8a !important;
+}
+
+.dark .creator-message p {
+  color: #e6e6e6 !important;
+}
+
+.dark .creator-message p:last-child {
+  color: #aaa !important;
+}
+
+.dark .creator-message a {
+  background-color: #4abf8a !important;
+  color: #0d1117 !important;
+}
+
+.dark .creator-message a:hover {
+  background-color: #5ccf9a !important;
+} 
