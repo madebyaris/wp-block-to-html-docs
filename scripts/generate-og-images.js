@@ -3,9 +3,14 @@
  * This script uses the Canvas API to create images with the library name and description
  */
 
-const { createCanvas, registerFont, loadImage } = require('canvas');
-const fs = require('fs');
-const path = require('path');
+import { createCanvas, loadImage } from 'canvas';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function generateOGImage() {
   try {
@@ -42,7 +47,7 @@ async function generateOGImage() {
     // Add website URL at the bottom
     ctx.fillStyle = '#666666';
     ctx.font = '24px Arial';
-    ctx.fillText('wp-block-to-html.madebyaris.com', 100, 570);
+    ctx.fillText('docs-block.madebyaris.com', 100, 570);
 
     // Save the image
     const buffer = canvas.toBuffer('image/png');
@@ -82,17 +87,16 @@ async function generateOGImage() {
     // Add website URL at the bottom
     twitterCtx.fillStyle = '#666666';
     twitterCtx.font = '16px Arial';
-    twitterCtx.fillText('wp-block-to-html.madebyaris.com', 60, 370);
+    twitterCtx.fillText('docs-block.madebyaris.com', 60, 370);
 
     // Save the Twitter image
     const twitterBuffer = twitterCanvas.toBuffer('image/png');
     fs.writeFileSync(path.join(__dirname, '../docs/public/twitter-card.png'), twitterBuffer);
     console.log('Created Twitter card image');
-
   } catch (error) {
     console.error('Error generating images:', error);
   }
 }
 
 // Run the function
-generateOGImage().catch(console.error); 
+generateOGImage().catch(console.error);
