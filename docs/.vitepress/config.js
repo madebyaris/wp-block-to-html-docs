@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { Readable } from 'stream'
-import sitemapPlugin from 'vite-plugin-sitemap'
+import { writeFileSync } from 'fs'
+import { resolve } from 'path'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -49,23 +50,82 @@ export default defineConfig({
   // Improve page title format
   titleTemplate: ':title | WP Block to HTML',
   
-  // Use sitemap plugin
-  vite: {
-    plugins: [
-      sitemapPlugin({
-        hostname: 'https://docs-block.madebyaris.com',
-        lastmod: new Date(),
-        changefreq: 'weekly',
-        priority: 0.7,
-        exclude: ['/404.html'],
-        generateRobotsTxt: false // Disable robots.txt generation
-      })
-    ]
+  // Generate sitemap.xml after build
+  buildEnd: async ({ outDir }) => {
+    const sitemap = new SitemapStream({ 
+      hostname: process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:5173'
+        : 'https://docs-block.madebyaris.com'
+    })
+    const links = []
+    
+    // Main pages
+    links.push({ url: '/', lastmod: new Date(), changefreq: 'weekly', priority: 1.0 })
+    links.push({ url: '/guide/', lastmod: new Date(), changefreq: 'weekly', priority: 0.9 })
+    links.push({ url: '/api/', lastmod: new Date(), changefreq: 'weekly', priority: 0.9 })
+    links.push({ url: '/examples/', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/frameworks/', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    
+    // Guide pages
+    links.push({ url: '/guide/getting-started', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/guide/installation', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/guide/quick-start', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/guide/content-handling-modes', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/css-frameworks', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/framework-components', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/custom-transformers', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/server-side-rendering', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/performance', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/plugins', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/lazy-loading', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/bundle-size', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/guide/migration-guide', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    
+    // API pages
+    links.push({ url: '/api/core-functions', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/api/configuration', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/api/developer', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/api/internal-architecture', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/api/plugin-development', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/api/contribution-guidelines', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/api/performance-optimization', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/api/testing-guide', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/api/blocks/text', lastmod: new Date(), changefreq: 'monthly', priority: 0.6 })
+    links.push({ url: '/api/blocks/media', lastmod: new Date(), changefreq: 'monthly', priority: 0.6 })
+    links.push({ url: '/api/blocks/layout', lastmod: new Date(), changefreq: 'monthly', priority: 0.6 })
+    links.push({ url: '/api/typescript/interfaces', lastmod: new Date(), changefreq: 'monthly', priority: 0.6 })
+    links.push({ url: '/api/typescript/types', lastmod: new Date(), changefreq: 'monthly', priority: 0.6 })
+    
+    // Framework pages
+    links.push({ url: '/frameworks/react', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/frameworks/vue', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/frameworks/nextjs', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/frameworks/gatsby', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/frameworks/svelte', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    links.push({ url: '/frameworks/angular', lastmod: new Date(), changefreq: 'monthly', priority: 0.8 })
+    
+    // Examples pages
+    links.push({ url: '/examples/css-frameworks', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    links.push({ url: '/examples/advanced', lastmod: new Date(), changefreq: 'monthly', priority: 0.7 })
+    
+    // Create the stream
+    const stream = Readable.from(links).pipe(sitemap)
+    
+    // Get the XML string
+    const xml = await streamToPromise(stream)
+    
+    // Write to file
+    writeFileSync(
+      resolve(outDir, 'sitemap.xml'),
+      xml.toString()
+    )
   },
   
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.svg',
+    
+    // Enhanced navigation
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
@@ -79,6 +139,8 @@ export default defineConfig({
         rel: 'noopener noreferrer'
       }
     ],
+
+    // Enhanced sidebar with better organization
     sidebar: {
       '/guide/': [
         {
@@ -179,24 +241,57 @@ export default defineConfig({
         }
       ]
     },
+
+    // Enhanced social links with hover effects
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/madebyaris/wp-block-to-html' },
-      { icon: 'linkedin', link: 'https://www.linkedin.com/in/arissetia/' },
-      { icon: 'twitter', link: 'https://twitter.com/arisberikut' }
+      { 
+        icon: 'github', 
+        link: 'https://github.com/madebyaris/wp-block-to-html',
+        ariaLabel: 'GitHub'
+      },
+      { 
+        icon: 'linkedin', 
+        link: 'https://www.linkedin.com/in/arissetia/',
+        ariaLabel: 'LinkedIn'
+      },
+      { 
+        icon: 'twitter', 
+        link: 'https://twitter.com/arisberikut',
+        ariaLabel: 'Twitter'
+      }
     ],
+
+    // Enhanced search with better UI
     search: {
-      provider: 'local'
+      provider: 'local',
+      options: {
+        detailedView: true,
+        miniSearch: {
+          options: {
+            storeFields: ['title', 'headings', 'content'],
+            searchOptions: {
+              prefix: true,
+              fuzzy: 0.2
+            }
+          }
+        }
+      }
     },
+
+    // Enhanced footer with better styling
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2025 madebyaris.com'
     },
     
-    // SEO-related theme config
+    // Enhanced edit link
     editLink: {
       pattern: 'https://github.com/madebyaris/wp-block-to-html-docs/edit/master/docs/:path',
-      text: 'Improve this page'
+      text: 'Improve this page',
+      ariaLabel: 'Edit page on GitHub'
     },
+
+    // Enhanced last updated
     lastUpdated: {
       text: 'Updated at',
       formatOptions: {
@@ -204,9 +299,30 @@ export default defineConfig({
         timeStyle: 'medium'
       }
     },
+
+    // Enhanced doc footer
     docFooter: {
-      prev: 'Previous page',
-      next: 'Next page'
+      prev: '← Previous page',
+      next: 'Next page →'
+    },
+
+    // Enhanced sidebar menu
+    sidebarMenuLabel: 'Menu',
+    returnToTopLabel: 'Return to top',
+    sidebarCollapsible: true,
+    outlineTitle: 'On this page',
+    outline: 'deep',
+    
+    // Enhanced mobile menu
+    mobileMenu: {
+      text: 'Menu',
+      ariaLabel: 'Menu'
+    },
+
+    // Enhanced navigation
+    navMenu: {
+      text: 'Navigation',
+      ariaLabel: 'Navigation'
     }
   }
 }) 
