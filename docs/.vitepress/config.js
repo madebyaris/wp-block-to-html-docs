@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { Readable } from 'stream'
-import { sitemap } from 'vite-plugin-sitemap'
+import sitemapPlugin from 'vite-plugin-sitemap'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -52,7 +52,7 @@ export default defineConfig({
   // Use sitemap plugin
   vite: {
     plugins: [
-      sitemap({
+      sitemapPlugin({
         hostname: 'https://docs-block.madebyaris.com',
         lastmod: new Date(),
         changefreq: 'weekly',
