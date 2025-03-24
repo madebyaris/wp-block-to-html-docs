@@ -1,0 +1,6 @@
+# Allow all web crawlers
+User-agent: *
+Allow: /
+
+# Tell search engines where to find the sitemap
+Sitemap: https://docs-block.madebyaris.com/sitemap.xml 

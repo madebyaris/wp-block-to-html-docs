@@ -7,7 +7,9 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "build": "node scripts/build.js"
+    "build": "node scripts/build.js",
+    "generate-og-images": "node --no-warnings scripts/generate-og-images.js",
+    "seo": "npm run generate-og-images && npm run docs:build"
   },
   "keywords": [
     "wordpress",
@@ -19,6 +21,9 @@
   "author": "Made by Aris",
   "license": "MIT",
   "devDependencies": {
+    "canvas": "^3.1.0",
+    "sitemap": "^8.0.0",
+    "vite-plugin-sitemap": "^0.7.1",
     "vitepress": "^1.0.0-rc.44"
   }
 }
