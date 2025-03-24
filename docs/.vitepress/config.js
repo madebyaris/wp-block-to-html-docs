@@ -57,7 +57,8 @@ export default defineConfig({
         lastmod: new Date(),
         changefreq: 'weekly',
         priority: 0.7,
-        exclude: ['/404.html']
+        exclude: ['/404.html'],
+        generateRobotsTxt: false // Disable robots.txt generation
       })
     ]
   },
