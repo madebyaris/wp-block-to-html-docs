@@ -50,9 +50,9 @@ export class WordPressService {
           // Process content based on what's available
           let content = '';
           
-          if (post.blocks) {
-            // Convert blocks to HTML
-            content = convertBlocks(post.blocks, {
+          if (post.content) {
+            // Process the WordPress blocks
+            content = convertBlocks(post.content, {
               cssFramework: 'bootstrap', // Match your Angular project's CSS framework
               contentHandling: 'html'
             });
@@ -272,7 +272,7 @@ import { WordPressService } from '../../services/wordpress.service';
     <div class="container mt-4" *ngIf="post">
       <h1 [innerHTML]="post.title"></h1>
       <app-wp-blocks 
-        [blocks]="post.blocks" 
+        [blocks]="post.content" 
         [fallbackContent]="post.content?.rendered"
         [cssFramework]="'bootstrap'"
       ></app-wp-blocks>
@@ -386,9 +386,9 @@ export class WordPressService {
           // Process content based on what's available
           let content = '';
           
-          if (post.blocks) {
-            // Convert blocks to HTML with SSR optimizations when on server
-            content = convertBlocks(post.blocks, {
+          if (post.content) {
+            // Process the WordPress blocks with SSR optimizations when on server
+            content = convertBlocks(post.content, {
               cssFramework: 'bootstrap',
               contentHandling: 'html',
               ssrOptions: {

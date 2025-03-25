@@ -96,18 +96,18 @@ const post = {
 };
 
 // Raw mode (default) - processes block data
-const rawHtml = convertBlocks(post.blocks, {
+const rawHtml = convertBlocks(post.content, {
   contentHandling: 'raw'
 });
 
 // Rendered mode - uses the pre-rendered HTML
-const renderedHtml = convertBlocks(post.blocks, {
+const renderedHtml = convertBlocks(post.content, {
   contentHandling: 'rendered',
   renderedContent: post.content.rendered
 });
 
 // Hybrid mode - applies framework classes to rendered HTML
-const hybridHtml = convertBlocks(post.blocks, {
+const hybridHtml = convertBlocks(post.content, {
   contentHandling: 'hybrid',
   renderedContent: post.content.rendered,
   cssFramework: 'tailwind'

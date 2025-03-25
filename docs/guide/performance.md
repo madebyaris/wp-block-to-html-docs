@@ -489,7 +489,7 @@ async function fetchAndRenderPost(postId) {
     const post = await response.json();
     
     // Begin processing immediately as data arrives
-    const html = convertBlocks(post.blocks, {
+    const html = convertBlocks(post.content, {
       ssrOptions: {
         enabled: true,
         optimizationLevel: 'balanced'

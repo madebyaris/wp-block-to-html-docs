@@ -73,12 +73,15 @@ const fetchPost = async (postId) => {
     const post = await response.json();
     
     // Check if blocks are available
-    if (post.blocks) {
-      // Convert blocks to HTML
-      const html = convertBlocks(post.blocks);
+    if (post.content) {
+      // Convert blocks to HTML with CSS framework integration
+      const contentHtml = convertBlocks(post.content, {
+        cssFramework: 'tailwind',
+        contentHandling: 'html'
+      });
       return {
         title: post.title.rendered,
-        content: html
+        content: contentHtml
       };
     } else if (post.content?.rendered) {
       // Fallback to pre-rendered content
@@ -247,9 +250,9 @@ fetch(`${API_URL}/posts?_fields=id,title,excerpt,content,blocks&per_page=5`)
       // Process content based on what's available
       let contentHtml = '';
       
-      if (post.blocks) {
-        // Convert blocks to HTML
-        contentHtml = convertBlocks(post.blocks, {
+      if (post.content) {
+        // Convert blocks to HTML with CSS framework integration
+        contentHtml = convertBlocks(post.content, {
           cssFramework: 'tailwind',
           contentHandling: 'html'
         });

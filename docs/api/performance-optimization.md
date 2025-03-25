@@ -361,7 +361,7 @@ function Post({ post }) {
   return (
     <article>
       <h1>{post.title}</h1>
-      <MemoizedContent blocks={post.blocks} options={{ cssFramework: 'tailwind' }} />
+      <MemoizedContent blocks={post.content} options={{ cssFramework: 'tailwind' }} />
     </article>
   );
 }

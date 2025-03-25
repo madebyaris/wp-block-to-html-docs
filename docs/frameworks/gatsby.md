@@ -129,10 +129,10 @@ const PostTemplate = ({ data }) => {
   // Convert blocks to HTML if available
   let renderedContent = post.content
   
-  if (post.blocks && post.blocks.length > 0) {
+  if (post.content && post.content.length > 0) {
     try {
       // Transform the blocks data structure to match what WP Block to HTML expects
-      const blocksData = post.blocks.map(block => {
+      const blocksData = post.content.map(block => {
         // Parse attributes
         const attrs = block.attributesJSON ? JSON.parse(block.attributesJSON) : {}
         

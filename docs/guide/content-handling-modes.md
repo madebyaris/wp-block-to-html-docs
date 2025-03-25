@@ -158,11 +158,11 @@ async function fetchWordPressPost() {
   let htmlContent;
   
   // Check if blocks data is available
-  if (post.blocks) {
-    // Use raw or hybrid mode with block data
-    htmlContent = convertBlocks(post.blocks, {
+  if (post.content) {
+    // Generate HTML from blocks with hybrid mode
+    htmlContent = convertBlocks(post.content, {
       cssFramework: 'tailwind',
-      contentHandling: 'hybrid' // or 'raw'
+      contentHandling: 'hybrid'
     });
   } 
   // Fall back to rendered content if no blocks are available

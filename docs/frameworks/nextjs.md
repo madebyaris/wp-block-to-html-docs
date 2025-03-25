@@ -65,9 +65,9 @@ export async function getServerSideProps({ params }) {
     // Process content based on what's available
     let content = '';
     
-    if (post.blocks) {
-      // Convert blocks to HTML with SSR optimizations
-      content = convertBlocks(post.blocks, {
+    if (post.content) {
+      // Convert blocks to HTML
+      content = convertBlocks(post.content, {
         cssFramework: 'tailwind', // Match your project's CSS framework
         ssrOptions: {
           enabled: true,
@@ -157,9 +157,9 @@ export async function getStaticProps({ params }) {
     // Process content based on what's available
     let content = '';
     
-    if (post.blocks) {
-      // Convert blocks to HTML with SSR optimizations
-      content = convertBlocks(post.blocks, {
+    if (post.content) {
+      // Convert blocks to HTML
+      content = convertBlocks(post.content, {
         cssFramework: 'tailwind',
         ssrOptions: {
           enabled: true,
@@ -268,7 +268,7 @@ export async function getStaticProps({ params }) {
     const post = posts[0];
     
     // If no blocks are available, return rendered content
-    if (!post.blocks) {
+    if (!post.content) {
       return {
         props: {
           title: post.title.rendered,
@@ -284,7 +284,7 @@ export async function getStaticProps({ params }) {
       props: {
         title: post.title.rendered,
         excerpt: post.excerpt.rendered.replace(/<[^>]+>/g, '').slice(0, 160),
-        blocks: post.blocks
+        blocks: post.content
       },
       revalidate: 3600
     };
@@ -302,7 +302,7 @@ export async function getStaticProps({ params }) {
 If you're using Tailwind CSS with Next.js, make sure to specify Tailwind in your WP Block to HTML configuration:
 
 ```jsx
-const content = convertBlocks(post.blocks, {
+const content = convertBlocks(post.content, {
   cssFramework: 'tailwind',
   ssrOptions: {
     enabled: true
@@ -315,7 +315,7 @@ const content = convertBlocks(post.blocks, {
 If you're using Bootstrap, update your configuration accordingly:
 
 ```jsx
-const content = convertBlocks(post.blocks, {
+const content = convertBlocks(post.content, {
   cssFramework: 'bootstrap',
   ssrOptions: {
     enabled: true
@@ -328,7 +328,7 @@ const content = convertBlocks(post.blocks, {
 To optimize your Next.js app for Core Web Vitals, use these WP Block to HTML features:
 
 ```jsx
-const content = convertBlocks(post.blocks, {
+const content = convertBlocks(post.content, {
   cssFramework: 'tailwind',
   ssrOptions: {
     enabled: true,
@@ -404,7 +404,7 @@ registerBlockHandler('core/heading', headingHandler);
 registerBlockHandler('core/image', imageHandler);
 
 // Use with custom configuration
-const content = convertBlocks(post.blocks, {
+const content = convertBlocks(post.content, {
   cssFramework: 'tailwind',
   customClassMap: { tailwind: tailwindMapping }
 });
@@ -494,8 +494,8 @@ export async function getStaticProps({ params }) {
     // Process content
     let content = '';
     
-    if (post.blocks) {
-      content = convertBlocks(post.blocks, {
+    if (post.content) {
+      content = convertBlocks(post.content, {
         cssFramework: 'tailwind',
         ssrOptions: {
           enabled: true,

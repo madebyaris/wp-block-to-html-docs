@@ -330,7 +330,7 @@ export async function getServerSideProps({ params }) {
   const post = posts[0];
   
   // Get block data from post content
-  const blockData = { blocks: post.blocks };
+  const blockData = { blocks: post.content };
   
   // Process with SSR optimizations
   const optimizedHtml = processBlocksForSSR(blockData, {
@@ -375,7 +375,7 @@ app.get('/posts/:slug', async (req, res) => {
   const post = posts[0];
   
   // Get block data
-  const blockData = { blocks: post.blocks };
+  const blockData = { blocks: post.content };
   
   // Process with SSR optimizations
   const optimizedHtml = processBlocksForSSR(blockData, {

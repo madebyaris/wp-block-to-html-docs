@@ -94,8 +94,8 @@ function WordPressPostViewer({ postId }) {
   }
   
   // Create the content component
-  const ContentComponent = post.blocks 
-    ? createReactComponent(post.blocks, { cssFramework: 'tailwind' })
+  const ContentComponent = post.content
+    ? createReactComponent(post.content, { cssFramework: 'tailwind' })
     : () => <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />;
   
   return (
@@ -117,8 +117,8 @@ import { createReactComponent } from 'wp-block-to-html/react';
 
 export default function Post({ post }) {
   // Create a React component from WordPress blocks
-  const ContentComponent = post.blocks 
-    ? createReactComponent(post.blocks, { cssFramework: 'tailwind' })
+  const ContentComponent = post.content
+    ? createReactComponent(post.content, { cssFramework: 'tailwind' })
     : () => <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />;
   
   return (
@@ -242,8 +242,8 @@ export default {
         
         this.post = await response.json();
         
-        if (this.post.blocks) {
-          this.ContentComponent = createVueComponent(this.post.blocks, {
+        if (this.post.content) {
+          this.ContentComponent = createVueComponent(this.post.content, {
             cssFramework: 'tailwind'
           });
         }
@@ -304,8 +304,8 @@ export default {
       const post = response.data[0];
       let ContentComponent = null;
       
-      if (post.blocks) {
-        ContentComponent = createVueComponent(post.blocks, {
+      if (post.content) {
+        ContentComponent = createVueComponent(post.content, {
           cssFramework: 'tailwind'
         });
       }
@@ -359,9 +359,9 @@ async function loadWordPressContent(postId, container) {
     
     let html = '';
     
-    if (post.blocks) {
-      // Convert blocks to HTML
-      html = convertBlocks(post.blocks, {
+    if (post.content) {
+      // Generate HTML from blocks
+      html = convertBlocks(post.content, {
         cssFramework: 'tailwind'
       });
     } else if (post.content?.rendered) {

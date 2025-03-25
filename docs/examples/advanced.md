@@ -89,7 +89,7 @@ app.get('/post/:slug', async (req, res) => {
     const post = posts[0];
     
     // Convert blocks with SSR optimizations
-    const content = convertBlocks(post.blocks, {
+    const content = convertBlocks(post.content, {
       cssFramework: 'tailwind',
       ssrOptions: {
         enabled: true,                 // Enable SSR optimizations

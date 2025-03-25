@@ -90,9 +90,9 @@ export async function load({ params, fetch }) {
     // Process content based on what's available
     let content = '';
     
-    if (post.blocks) {
-      // Convert blocks to HTML
-      content = convertBlocks(post.blocks, {
+    if (post.content) {
+      // Process blocks with WP Block to HTML
+      content = convertBlocks(post.content, {
         cssFramework: 'tailwind', // Or whichever CSS framework you're using
         contentHandling: 'html'
       });
@@ -146,9 +146,9 @@ export async function load({ params, fetch }) {
     // Process content based on what's available
     let content = '';
     
-    if (post.blocks) {
-      // Convert blocks to HTML with SSR optimizations
-      content = convertBlocks(post.blocks, {
+    if (post.content) {
+      // Process blocks with WP Block to HTML
+      content = convertBlocks(post.content, {
         cssFramework: 'tailwind',
         contentHandling: 'html',
         ssrOptions: {
@@ -205,9 +205,9 @@ export async function getPost(slug, options = {}) {
   // Process content based on what's available
   let content = '';
   
-  if (post.blocks) {
-    // Convert blocks to HTML
-    content = convertBlocks(post.blocks, {
+  if (post.content) {
+    // Process blocks with WP Block to HTML
+    content = convertBlocks(post.content, {
       cssFramework: options.cssFramework || 'tailwind',
       contentHandling: 'html',
       ssrOptions: {
@@ -362,7 +362,7 @@ Using the component in your pages:
 <article>
   <h1>{@html post.title}</h1>
   <WordPressBlocks 
-    blocks={post.blocks}
+    blocks={post.content}
     fallbackContent={post.content?.rendered}
     cssFramework="tailwind"
     ssr={true}
@@ -693,7 +693,7 @@ export async function load({ url }) {
     <h1 class="text-4xl font-bold mb-6">{@html post.title}</h1>
     
     <WordPressBlocks 
-      blocks={post.blocks}
+      blocks={post.content}
       fallbackContent={post.content?.rendered}
       cssFramework="tailwind"
       ssr={true}

@@ -94,8 +94,8 @@ async function fetchPost() {
   const response = await fetch('https://example.com/wp-json/wp/v2/posts/1?_fields=id,title,content,blocks');
   const post = await response.json();
   
-  if (post.blocks) {
-    const html = convertBlocks(post.blocks, {
+  if (post.content) {
+    const html = convertBlocks(post.content, {
       cssFramework: 'tailwind',
       contentHandling: 'raw'
     });
@@ -149,9 +149,9 @@ async function displayWordPressPost(postId) {
     let content = '';
     
     // Process content based on what's available
-    if (post.blocks) {
+    if (post.content) {
       console.log('Processing raw block data...');
-      content = convertBlocks(post.blocks, {
+      content = convertBlocks(post.content, {
         cssFramework: 'tailwind',
         contentHandling: 'raw'
       });
