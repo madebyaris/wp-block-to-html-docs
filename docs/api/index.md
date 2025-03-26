@@ -1,5 +1,17 @@
 # API Reference
 
+:::warning IMPORTANT: Accessing Block Content
+**You cannot directly access raw block content from WordPress.**
+
+To use WP Block to HTML with raw block data, you'll need to install a plugin to expose this content. We're developing an official plugin with proper security measures to safely expose this data.
+
+In the meantime, you can use a plugin like [Post Raw Content](https://github.com/w1z2g3/wordpress-plugins/blob/master/post-raw-content.php) to access block data.
+
+**Note:** You can still use this package without a plugin by working with the rendered HTML content that WordPress provides by default. The package will handle rendered HTML content automatically using the `contentHandling: 'rendered'` option.
+
+Stay tuned for our official plugin release!
+:::
+
 Welcome to the WP Block to HTML API reference documentation. This section provides detailed information about the library's API, including core functions, configuration options, developer resources, and TypeScript definitions.
 
 ## Overview

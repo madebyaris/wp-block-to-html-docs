@@ -1,5 +1,17 @@
 # Getting Started
 
+:::warning IMPORTANT: Accessing Block Content
+**You cannot directly access raw block content from WordPress.**
+
+To use WP Block to HTML with raw block data, you'll need to install a plugin to expose this content. We're developing an official plugin with proper security measures to safely expose this data.
+
+In the meantime, you can use a plugin like [Post Raw Content](https://github.com/w1z2g3/wordpress-plugins/blob/master/post-raw-content.php) to access block data.
+
+**Note:** You can still use this package without a plugin by working with the rendered HTML content that WordPress provides by default. The package will handle rendered HTML content automatically, as shown in the "Option 2" example below.
+
+Stay tuned for our official plugin release!
+:::
+
 This guide will help you quickly integrate WP Block to HTML into your project and convert WordPress content into clean, framework-compatible HTML.
 
 ## Installation
@@ -73,29 +85,22 @@ document.getElementById('content').innerHTML = html;
 
 ## Handling WordPress REST API Content
 
-The WordPress REST API can deliver content in two ways:
+The WordPress REST API doesn't expose raw block data by default. You'll need a plugin to access this data:
 
 ### Option 1: Raw Block Data (Preferred)
 
-When the WordPress site has the Gutenberg block editor enabled and configured to expose block data:
-
 ```javascript
-// Enable raw block data in WordPress by adding this to your theme's functions.php:
-// add_action('rest_api_init', function () {
-//   register_rest_field('post', 'blocks', [
-//     'get_callback' => function($post) {
-//       return parse_blocks($post['content']['raw']);
-//     }
-//   ]);
-// });
+// IMPORTANT: You need to install a plugin like Post Raw Content to expose block data
+// https://github.com/w1z2g3/wordpress-plugins/blob/master/post-raw-content.php
+//
+// Once installed, you can fetch the block data:
 
-// Then fetch and process the blocks:
 async function fetchPost() {
   const response = await fetch('https://example.com/wp-json/wp/v2/posts/1?_fields=id,title,content,blocks');
   const post = await response.json();
   
-  if (post.content) {
-    const html = convertBlocks(post.content, {
+  if (post.blocks) {
+    const html = convertBlocks(post.blocks, {
       cssFramework: 'tailwind',
       contentHandling: 'raw'
     });
@@ -243,25 +248,17 @@ const html = convertBlocks(blockData, {
 
 If you're not getting block data from the WordPress API:
 
-1. Verify your WordPress site has the right configuration in functions.php:
+1. Make sure you've installed a plugin to expose raw block content. We recommend:
+   - [Post Raw Content](https://github.com/w1z2g3/wordpress-plugins/blob/master/post-raw-content.php) (temporary solution)
+   - Our official plugin (coming soon)
 
-```php
-// Add to your theme's functions.php
-add_action('rest_api_init', function () {
-  register_rest_field('post', 'blocks', [
-    'get_callback' => function($post) {
-      return parse_blocks($post['content']['raw']);
-    }
-  ]);
-});
-```
+2. Check that the plugin is properly installed and activated.
 
-2. Check your API request includes the blocks field:
-
-```javascript
-// Include the blocks field in your request
-fetch('https://example.com/wp-json/wp/v2/posts/1?_fields=id,title,content,blocks');
-```
+3. Verify that your API request includes the necessary fields:
+   ```javascript
+   // Make sure to request the blocks field
+   const response = await fetch('https://example.com/wp-json/wp/v2/posts/1?_fields=id,title,content,blocks');
+   ```
 
 ### Issue: Poor Performance with Large Content
 
