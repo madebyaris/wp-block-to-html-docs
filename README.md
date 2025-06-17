@@ -1,22 +1,23 @@
-# WP Block to HTML Documentation
+# WP Block to HTML Documentation (v1.0.0)
 
-This directory contains the documentation website for the WP Block to HTML library, built with VitePress.
+This directory contains the documentation website for the **WP Block to HTML** library — **v1.0.0 stable release** — built with VitePress. The v1.0.0 milestone introduces **client-side hydration** and solidifies production-ready status.
 
 ## Structure
 
 - **Home (/)**: Overview of the library and its features
 - **Guide (/guide/)**: Getting started guides and tutorials
+  - **NEW**: [Client-Side Hydration](/guide/hydration) 💧
 - **API (/api/)**: API reference and developer documentation
 - **Frameworks (/frameworks/)**: Framework-specific integration guides
 - **Examples (/examples/)**: Code examples for common use cases
 
-## Key Documentation Features
+## Key Documentation Features (v1.0.0)
 
-- **Comprehensive API Reference**: Detailed documentation of all public APIs
+- **Client-Side Hydration Guide**: Progressive hydration strategies with React, Vue, Angular, Svelte examples
+- **Comprehensive API Reference**: Detailed documentation of all public APIs with TypeScript annotations
 - **Framework Integration Guides**: Guides for React, Vue, Angular, and Svelte
 - **CSS Framework Integration**: Documentation for Tailwind CSS and Bootstrap
-- **Developer Resources**: Internal architecture, plugin development, and contribution guidelines
-- **Performance Optimization**: Strategies for optimizing performance in large applications
+- **Performance Optimization**: Strategies for achieving 947 blocks/ms processing speed
 - **Migration Guides**: Step-by-step guides for migrating from WordPress to headless
 
 ## Development

@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "WP Block to HTML",
-  description: "Convert WordPress blocks to framework-agnostic HTML",
+  title: "WP Block to HTML v1.0.0",
+  description: "Convert WordPress blocks to framework-agnostic HTML with client-side hydration - v1.0.0 stable release",
   base: '/',
   ignoreDeadLinks: true,
   themeConfig: {
@@ -35,11 +35,21 @@ export default defineConfig({
           ]
         },
         {
+          text: 'v1.0.0 Features',
+          items: [
+            { text: '🆕 Client-Side Hydration', link: '/guide/hydration' },
+            { text: 'Framework Components', link: '/guide/framework-components' },
+            { text: 'Server-Side Rendering', link: '/guide/server-side-rendering' },
+            { text: 'Performance Optimization', link: '/guide/performance' }
+          ]
+        },
+        {
           text: 'Advanced Features',
           items: [
             { text: 'SSR Optimizations', link: '/guide/ssr-optimizations' },
             { text: 'Lazy Loading Media', link: '/guide/lazy-loading' },
-            { text: 'Bundle Size Optimization', link: '/guide/bundle-size' }
+            { text: 'Bundle Size Optimization', link: '/guide/bundle-size' },
+            { text: 'Plugin System', link: '/guide/plugins' }
           ]
         },
         {
@@ -80,7 +90,9 @@ export default defineConfig({
         {
           text: 'TypeScript',
           items: [
-            { text: 'TypeScript Reference', link: '/api/typescript' }
+            { text: 'TypeScript Reference', link: '/api/typescript' },
+            { text: 'Interfaces', link: '/api/typescript/interfaces' },
+            { text: 'Types', link: '/api/typescript/types' }
           ]
         }
       ],
@@ -110,7 +122,8 @@ export default defineConfig({
       ]
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/yourusername/wp-block-to-html' }
+      { icon: 'github', link: 'https://github.com/madebyaris/wp-block-to-html' },
+      { icon: { svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.1 13.2c.1-.1.1-.2.1-.4 0-.2 0-.3-.1-.4l-2.4-4.1c-.1-.1-.2-.2-.4-.2s-.3.1-.4.2l-2.4 4.1c-.1.1-.1.2-.1.4s0 .3.1.4l2.4 4.1c.1.1.2.2.4.2s.3-.1.4-.2l2.4-4.1zm-8.1 0c.1-.1.1-.2.1-.4 0-.2 0-.3-.1-.4L9.6 8.3c-.1-.1-.2-.2-.4-.2s-.3.1-.4.2L6.4 12.4c-.1.1-.1.2-.1.4s0 .3.1.4l2.4 4.1c.1.1.2.2.4.2s.3-.1.4-.2L12 13.2z"/></svg>' }, link: 'https://www.npmjs.com/package/wp-block-to-html' }
     ],
     search: {
       provider: 'local'
